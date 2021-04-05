@@ -1,72 +1,72 @@
-function getTotalBooksCount (books) {
-  return books.length
+function getTotalBooksCount(books) {
+  return books.length;
 }
 
-function getTotalAccountsCount (accounts) {
-  return accounts.length
+function getTotalAccountsCount(accounts) {
+  return accounts.length;
 }
 
-function getBooksBorrowedCount (books) {
+function getBooksBorrowedCount(books) {
   let result = books.reduce((acc, book) => {
-    return acc + (book.borrows[0].returned === false)
-  }, 0)
-  return result
+    return acc + (book.borrows[0].returned === false);
+  }, 0);
+  return result;
 }
 
-function getMostCommonGenres (books) {
-  let commonGenres = []
+function getMostCommonGenres(books) {
+  let commonGenres = [];
 
   for (let book of books) {
     const genre = commonGenres.find(
-      currentGenre => currentGenre.name === book.genre
-    )
+      (currentGenre) => currentGenre.name === book.genre
+    );
     if (genre) {
-      genre.count++
+      genre.count++;
     } else {
-      commonGenres.push({ name: book.genre, count: 1 })
+      commonGenres.push({ name: book.genre, count: 1 });
     }
   }
   let topGenres = commonGenres.sort((countA, countB) =>
     countA.count < countB.count ? 1 : -1
-  )
-  return topGenres.slice(0, 5)
+  );
+  return topGenres.slice(0, 5);
 }
 
-function getMostPopularBooks (books) {
-  let mostPopular = []
+function getMostPopularBooks(books) {
+  let mostPopular = [];
 
   for (let book of books) {
     const title = mostPopular.find(
-      currentBook => currentBook.name === book.title
-    )
+      (currentBook) => currentBook.name === book.title
+    );
 
-    mostPopular.push({ name: book.title, count: book.borrows.length })
+    mostPopular.push({ name: book.title, count: book.borrows.length });
   }
 
   let mostPopularTomes = mostPopular.sort((countA, countB) =>
     countA.count < countB.count ? 1 : -1
-  )
-  return mostPopularTomes.slice(0, 5)
+  );
+  return mostPopularTomes.slice(0, 5);
 }
 
-function getMostPopularAuthors (books, authors) {
-  let result = []
+function getMostPopularAuthors(books, authors) {
+  let result = [];
 
-  let matchingAuthor = books.filter(book =>
-    authors.find(author => author.id === book.authorId)
-  )
-  matchingAuthor.forEach(book => {
-    let author = authors.find(author => author.id === book.authorId)
+  let matchingAuthor = books.filter((book) =>
+    authors.find((author) => author.id === book.authorId)
+  );
+  matchingAuthor.forEach((book) => {
+    let author = authors.find((author) => author.id === book.authorId);
     result.push({
       name: `${author.name.first} ${author.name.last}`,
-      count: book.borrows.length
-    })
-  })
+      count: book.borrows.length,
+    });
+  });
 
   let finalResult = result.sort((countA, countB) =>
     countA.count < countB.count ? 1 : -1
-  )
-  return finalResult.slice(0, 5)
+  );
+  return finalResult.slice(0, 5);
 }
 
 module.exports = {
@@ -75,5 +75,5 @@ module.exports = {
   getBooksBorrowedCount,
   getMostCommonGenres,
   getMostPopularBooks,
-  getMostPopularAuthors
-}
+  getMostPopularAuthors,
+};
