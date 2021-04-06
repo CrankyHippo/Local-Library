@@ -21,10 +21,11 @@ function getBorrowersForBook(book, accounts) {
   let result = borrowed
     .map((status) => {
       let borrowersInfo = findAuthorById(accounts, status.id);
+      //Passes in account instead of author, id from map
       borrowersInfo.returned = status.returned;
       return borrowersInfo;
     })
-    .slice(0, 10);
+    .slice(0, 10); //Cuts off after tenth
   return result;
 }
 
