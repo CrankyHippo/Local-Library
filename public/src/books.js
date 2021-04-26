@@ -1,32 +1,37 @@
 function findAuthorById(authors, id) {
-  const foundAuthor = authors.find((author) => author.id === id);
-  return foundAuthor;
+  return authors.find((author) => author.id == id);
 }
 
 function findBookById(books, id) {
-  const foundBook = books.find((book) => book.id === id);
-  return foundBook;
+  return books.find((book) => book.id == id);
 }
 
 function partitionBooksByBorrowedStatus(books) {
-  let booksOut = books.filter((book) => book.borrows[0].returned === false);
-  let booksIn = books.filter((book) => book.borrows[0].returned === true);
-  let borrowStats = [booksOut, booksIn];
+  let returnedBooks = [];
+  let notReturnedBooks = [];
 
-  return borrowStats;
+  books.forEach((book) => {
+    const borrowsList = book.borrows;
+    if (borrowsList.every((borrow) => borrow.returned == true)){
+      returnedBooks.push(book)
+    } else {
+      notReturnedBooks.push(book)
+    }
+  })
+  return [[...notReturnedBooks],[...returnedBooks]]
 }
 
 function getBorrowersForBook(book, accounts) {
-  let borrowed = book.borrows;
-  let result = borrowed
-    .map((status) => {
-      let borrowersInfo = findAuthorById(accounts, status.id);
-      //Passes in account instead of author, id from map
-      borrowersInfo.returned = status.returned;
-      return borrowersInfo;
-    })
-    .slice(0, 10); //Cuts off after tenth
-  return result;
+  let extendedBorrowsList = [];
+  book.borrows.forEach((borrow) => {
+    const found = accounts.find((account) => account.id == borrow.id)
+    extendedBorrowsList.push({...borrow,...found})
+  })
+  if (extendedBorrowsList.length < 11) {
+    return extendedBorrowsList;
+  } else {
+    return extendedBorrowsList.splice(0,10);
+  }
 }
 
 module.exports = {
