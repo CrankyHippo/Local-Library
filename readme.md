@@ -1,6 +1,6 @@
 # Project: Local Library
 
-This was the first big project I did implementing Javascript during the Thinkful coursework. Below are the instructions that I followed to create the site. I had to update a few of the directory links in the html files to get it to populate properly via github page vs using the local server on vscode. 
+**This was the first big project I did implementing Javascript during the Thinkful coursework. Below are the instructions that I followed to create the site. I had to update a few of the directory links in the html files to get it to populate properly via github page vs using the local server on vscode.**
 
 > Your neighborhood has decided to put together a local library where people can lend and borrow books. One of the most important features to organize this is a dashboard that will show which books are available, which are currently out, and other general statistics about the program.
 >
